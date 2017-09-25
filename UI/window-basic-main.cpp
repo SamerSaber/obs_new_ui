@@ -267,7 +267,7 @@ OBSBasic::OBSBasic(QWidget *parent)
 	assignDockToggle(ui->scenesDock, ui->toggleScenes);
 //	assignDockToggle(ui->sourcesDock, ui->toggleSources);
 	assignDockToggle(ui->mixerDock, ui->toggleMixer);
-	assignDockToggle(ui->transitionsDock, ui->toggleTransitions);
+//	assignDockToggle(ui->transitionsDock, ui->toggleTransitions);
 	assignDockToggle(ui->controlsDock, ui->toggleControls);
 
 	//hide all docking panes
@@ -5453,7 +5453,7 @@ void OBSBasic::on_resetUI_triggered()
 		ui->scenesDock,
 		ui->sourcesDock,
 		ui->mixerDock,
-		ui->transitionsDock,
+//		ui->transitionsDock,
 		ui->controlsDock
 	};
 
@@ -5468,7 +5468,7 @@ void OBSBasic::on_resetUI_triggered()
 	ui->scenesDock->setVisible(true);
 	ui->sourcesDock->setVisible(true);
 	ui->mixerDock->setVisible(true);
-	ui->transitionsDock->setVisible(true);
+//	ui->transitionsDock->setVisible(true);
 	ui->controlsDock->setVisible(true);
 
 	resizeDocks(docks, {cy, cy, cy, cy, cy}, Qt::Vertical);
@@ -5485,7 +5485,7 @@ void OBSBasic::on_lockUI_toggled(bool lock)
 	ui->scenesDock->setFeatures(features);
 //	ui->sourcesDock->setFeatures(features);
 	ui->mixerDock->setFeatures(features);
-	ui->transitionsDock->setFeatures(features);
+//	ui->transitionsDock->setFeatures(features);
 	ui->controlsDock->setFeatures(features);
 }
 
