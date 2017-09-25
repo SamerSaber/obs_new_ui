@@ -265,7 +265,7 @@ OBSBasic::OBSBasic(QWidget *parent)
 	};
 
 	assignDockToggle(ui->scenesDock, ui->toggleScenes);
-	assignDockToggle(ui->sourcesDock, ui->toggleSources);
+//	assignDockToggle(ui->sourcesDock, ui->toggleSources);
 	assignDockToggle(ui->mixerDock, ui->toggleMixer);
 	assignDockToggle(ui->transitionsDock, ui->toggleTransitions);
 	assignDockToggle(ui->controlsDock, ui->toggleControls);
@@ -5483,7 +5483,7 @@ void OBSBasic::on_lockUI_toggled(bool lock)
 		: QDockWidget::AllDockWidgetFeatures;
 
 	ui->scenesDock->setFeatures(features);
-	ui->sourcesDock->setFeatures(features);
+//	ui->sourcesDock->setFeatures(features);
 	ui->mixerDock->setFeatures(features);
 	ui->transitionsDock->setFeatures(features);
 	ui->controlsDock->setFeatures(features);

@@ -139,8 +139,8 @@ VolControl::VolControl(OBSSource source_, bool showConfig)
 //	slider->setMaximumHeight(13);
 
 	textLayout->setContentsMargins(0, 0, 0, 0);
-	textLayout->addWidget(nameLabel);
-	textLayout->addWidget(volLabel);
+//	textLayout->addWidget(nameLabel);
+//	textLayout->addWidget(volLabel);
 	textLayout->setAlignment(nameLabel, Qt::AlignLeft);
 	textLayout->setAlignment(volLabel,  Qt::AlignRight);
 
