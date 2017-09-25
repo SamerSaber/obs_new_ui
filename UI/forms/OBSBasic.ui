@@ -425,6 +425,10 @@
                <bool>false</bool>
               </property>
               <addaction name="separator"/>
+              <addaction name="actionAddScene"/>
+              <addaction name="actionRemoveScene"/>
+              <addaction name="actionSceneUp"/>
+              <addaction name="actionSceneDown"/>
              </widget>
             </item>
             <item>
@@ -493,6 +497,10 @@
                <bool>false</bool>
               </property>
               <addaction name="separator"/>
+              <addaction name="actionAddSource"/>
+              <addaction name="actionRemoveSource"/>
+              <addaction name="actionSourceUp"/>
+              <addaction name="actionSourceDown"/>
              </widget>
             </item>
             <item>
