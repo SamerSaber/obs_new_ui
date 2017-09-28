@@ -1718,6 +1718,7 @@ void obs_source_default_render(obs_source_t *source)
 
 static inline void obs_source_main_render(obs_source_t *source)
 {
+	//comment
 	uint32_t flags      = source->info.output_flags;
 	bool custom_draw    = (flags & OBS_SOURCE_CUSTOM_DRAW) != 0;
 	bool default_effect = !source->filter_parent &&
