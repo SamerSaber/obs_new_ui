@@ -344,8 +344,8 @@ void VolumeMeter::paintEvent(QPaintEvent *event)
 	QPainter painter(this);
 	QLinearGradient gradient;
 
-	int width  = size().width();
-	int height = size().height();
+	int width  = size().height();
+	int height = size().width();
 
 	calcLevels();
 
@@ -360,6 +360,8 @@ void VolumeMeter::paintEvent(QPaintEvent *event)
 	gradient.setColorAt(0, db == 0.0f ? clipColor1 : magColor);
 	gradient.setColorAt(1, db == 0.0f ? clipColor2 : peakColor);
 
+	painter.rotate(-90);
+	painter.translate(-width, 0);
 	// RMS
 	painter.fillRect(0, 0, 
 			scaledMag, height,
@@ -374,11 +376,10 @@ void VolumeMeter::paintEvent(QPaintEvent *event)
 	painter.fillRect(scaledPeak, 0,
 			width - scaledPeak, height,
 			bkColor);
-
 	// Peak hold
 	if (peakHold == 1.0f)
 		scaledPeakHold--;
-
+	
 	painter.setPen(peakHoldColor);
 	painter.drawLine(scaledPeakHold, 0,
 		scaledPeakHold, height);

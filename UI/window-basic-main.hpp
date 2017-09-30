@@ -112,7 +112,8 @@ private:
 	std::vector<VolControl*> volumes;
 
 	std::vector<OBSSignal> signalHandlers;
-
+	QPushButton *btnStartRecording;
+	QPushButton *streamingBtn_1;
 	std::vector<std::string> projectorArray;
 	std::vector<int> previewProjectorArray;
 
@@ -596,6 +597,7 @@ private slots:
 
 	void on_streamButton_clicked();
 	void on_recordButton_clicked();
+	void ExitClicked();
 	void on_settingsButton_clicked();
 
 	void on_actionWebsite_triggered();
