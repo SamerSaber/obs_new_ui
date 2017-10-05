@@ -1976,21 +1976,60 @@ void OBSBasic::CreateFiltersWindow(obs_source_t *source)
 	filters->setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
-/* Qt callbacks for invokeMethod */
 
+void OBSBasic::CreateSceneDisplay(obs_scene_t *scene, scene_display_info &display_info)
+{
+
+
+	auto displayResize = [this]() {
+		struct obs_video_info ovi;
+
+		if (obs_get_video_info(&ovi))
+			ResizeProgram(ovi.base_width, ovi.base_height);
+	};
+
+	connect(display_info.display.data(), &OBSQTDisplay::DisplayResized,
+		displayResize);
+
+	auto addDisplay = [this](OBSQTDisplay *window)
+	{
+		obs_display_add_draw_callback(window->GetDisplay(),
+			OBSBasic::RenderProgram, this);
+
+		struct obs_video_info ovi;
+		if (obs_get_video_info(&ovi))
+			ResizeProgram(ovi.base_width, ovi.base_height);
+	};
+
+	connect(display_info.display.data(), &OBSQTDisplay::DisplayCreated, addDisplay);
+
+	display_info.display->setSizePolicy(QSizePolicy::Expanding,
+		QSizePolicy::Expanding);
+}
+
+/* Qt callbacks for invokeMethod */
 void OBSBasic::AddScene(OBSSource source)
 {
-	const char *name = obs_source_get_name(source);
+	const char *name  = obs_source_get_name(source);
 	obs_scene_t *scene = obs_scene_from_source(source);
 
 	QListWidgetItem *item = new QListWidgetItem(QT_UTF8(name));
 	SetOBSRef(item, OBSScene(scene));
+
+
+	item->setSizeHint(QSize(10, 150));
+	scene_display_info d;
+	d.display= new OBSQTDisplay();
+	d.display->raise();
+	CreateSceneDisplay(scene,d);
 	ui->scenes->addItem(item);
+	ui->scenes->setItemWidget(item, d.display);
+
 
 	obs_hotkey_register_source(source, "OBSBasic.SelectScene",
-		Str("Basic.Hotkeys.SelectScene"),
-		[](void *data,
-			obs_hotkey_id, obs_hotkey_t*, bool pressed)
+			Str("Basic.Hotkeys.SelectScene"),
+			[](void *data,
+				obs_hotkey_id, obs_hotkey_t*, bool pressed)
 	{
 		OBSBasic *main =
 			reinterpret_cast<OBSBasic*>(App()->GetMainWindow());
@@ -2020,10 +2059,10 @@ void OBSBasic::AddScene(OBSSource source)
 	});
 
 	item->setData(static_cast<int>(QtDataRole::OBSSignals),
-		QVariant::fromValue(container));
+			QVariant::fromValue(container));
 
 	/* if the scene already has items (a duplicated scene) add them */
-	auto addSceneItem = [this](obs_sceneitem_t *item)
+	auto addSceneItem = [this] (obs_sceneitem_t *item)
 	{
 		AddSceneItem(item);
 	};
@@ -2031,20 +2070,20 @@ void OBSBasic::AddScene(OBSSource source)
 	using addSceneItem_t = decltype(addSceneItem);
 
 	obs_scene_enum_items(scene,
-		[](obs_scene_t*, obs_sceneitem_t *item, void *param)
-	{
-		addSceneItem_t *func;
-		func = reinterpret_cast<addSceneItem_t*>(param);
-		(*func)(item);
-		return true;
-	}, &addSceneItem);
+			[] (obs_scene_t*, obs_sceneitem_t *item, void *param)
+			{
+				addSceneItem_t *func;
+				func = reinterpret_cast<addSceneItem_t*>(param);
+				(*func)(item);
+				return true;
+			}, &addSceneItem);
 
 	SaveProject();
 
 	if (!disableSaving) {
 		obs_source_t *source = obs_scene_get_source(scene);
 		blog(LOG_INFO, "User added scene '%s'",
-			obs_source_get_name(source));
+				obs_source_get_name(source));
 	}
 
 	if (api)

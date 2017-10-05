@@ -103,7 +103,7 @@
      <x>0</x>
      <y>0</y>
      <width>1094</width>
-     <height>26</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -381,7 +381,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="sceneseTab">
            <attribute name="title">
@@ -405,6 +405,9 @@
               <property name="frameShadow">
                <enum>QFrame::Plain</enum>
               </property>
+              <property name="horizontalScrollBarPolicy">
+               <enum>Qt::ScrollBarAlwaysOn</enum>
+              </property>
               <property name="showDropIndicator" stdset="0">
                <bool>true</bool>
               </property>
@@ -412,10 +415,16 @@
                <bool>true</bool>
               </property>
               <property name="dragDropMode">
-               <enum>QAbstractItemView::InternalMove</enum>
+               <enum>QAbstractItemView::NoDragDrop</enum>
               </property>
               <property name="defaultDropAction">
-               <enum>Qt::TargetMoveAction</enum>
+               <enum>Qt::CopyAction</enum>
+              </property>
+              <property name="movement">
+               <enum>QListView::Static</enum>
+              </property>
+              <property name="viewMode">
+               <enum>QListView::ListMode</enum>
               </property>
              </widget>
             </item>
@@ -799,8 +808,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>146</width>
-          <height>284</height>
+          <width>235</width>
+          <height>283</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout"/>

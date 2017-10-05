@@ -82,6 +82,16 @@ struct QuickTransition {
 	{}
 };
 
+typedef struct scene_display_info_st{
+
+	QPointer<OBSQTDisplay> display;
+	int   programX = 0,  programY = 0;
+	int   programCX = 0, programCY = 0;
+	float programScale = 0.0f;
+
+} scene_display_info;
+
+
 class OBSBasic : public OBSMainWindow {
 	Q_OBJECT
 
@@ -456,6 +466,7 @@ private:
 	static void SourceDeactivated(void *data, calldata_t *params);
 	static void SourceRenamed(void *data, calldata_t *params);
 	static void RenderMain(void *data, uint32_t cx, uint32_t cy);
+	void CreateSceneDisplay(obs_scene_t *scene, scene_display_info &display);
 
 	void ResizePreview(uint32_t cx, uint32_t cy);
 
